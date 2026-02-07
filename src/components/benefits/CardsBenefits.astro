@@ -1,0 +1,131 @@
+---
+// Casos de Éxito - Success Cases Cards
+// Estilo: Cards oscuras con iconos, hover scale simple
+
+import Swiper from '@/components/swiper/Swiper.astro';
+
+interface SuccessCase {
+  title: string;
+  subtitle: string;
+  description: string;
+  image?: string; // Opcional: ruta de imagen real
+}
+
+const cases: SuccessCase[] = [
+  {
+    title: "Maquinaria Pesada",
+    subtitle: "Origen: USA",
+    description:
+      "Importación de retroexcavadora Caterpillar. Gestión completa de logística sobredimensionada y desaduanamiento en frontera en solo 72 horas.",
+
+    // image: "/images/excavadora.jpg" // Descomenta cuando tengas la imagen
+  },
+  {
+    title: "Lote de Vehículos",
+    subtitle: "Origen: Copart (USA)",
+    description:
+      "Adquisición y transporte de 5 vehículos de subasta. Optimización de costos logísticos mediante consolidación de carga en contenedor de 40 pies.",
+  
+    // image: "/images/vehiculos.jpg"
+  },
+  {
+    title: "Planta Solar",
+    subtitle: "Origen: China",
+    description:
+      "Gestión de permisos previos ante el Ministerio de Energías para la importación de 2,000 paneles solares con exención de aranceles según normativa vigente.",
+   
+    // image: "/images/paneles-solares.jpg"
+  },
+  {
+    title: "Maquinaria Pesada",
+    subtitle: "Origen: USA",
+    description:
+      "Importación de retroexcavadora Caterpillar. Gestión completa de logística sobredimensionada y desaduanamiento en frontera en solo 72 horas.",
+
+    // image: "/images/excavadora.jpg" // Descomenta cuando tengas la imagen
+  },
+  {
+    title: "Lote de Vehículos",
+    subtitle: "Origen: Copart (USA)",
+    description:
+      "Adquisición y transporte de 5 vehículos de subasta. Optimización de costos logísticos mediante consolidación de carga en contenedor de 40 pies.",
+  
+    // image: "/images/vehiculos.jpg"
+  },
+  {
+    title: "Planta Solar",
+    subtitle: "Origen: China",
+    description:
+      "Gestión de permisos previos ante el Ministerio de Energías para la importación de 2,000 paneles solares con exención de aranceles según normativa vigente.",
+   
+    // image: "/images/paneles-solares.jpg"
+  },
+];
+---
+
+<!-- Sección 6: Casos de Éxito -->
+<section class="pt-10 w-full">
+  <div class="max-w-6xl w-full mx-auto px-4 lg:px-0">
+    
+    <!-- Header -->
+    <div class="text-center mb-12 flex flex-col gap-5">
+      <span class="text-foreground text-sm font-semibold uppercase tracking-wide mb-3 block">
+        Casos de Éxito
+      </span>
+      <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-4">
+        Resultados reales, clientes satisfechos
+      </h2>
+      <p class="text-foreground text-lg max-w-2xl mx-auto">
+        Hemos importado lo que buscas. Conoce algunos de nuestros casos más recientes.
+      </p>
+
+      <!-- Grid de Cards -->
+<Swiper>
+  {cases.map((item) => (
+    <div class="swiper-slide">
+      <div class="success-card group bg-slate-900 backdrop-blur-sm p-8 border border-slate-700 hover:border-indigo-500/50 transition-all duration-300">
+        
+        <!-- Contenido -->
+        <div>
+          <h3 class="text-xl font-bold text-white mb-1">
+            {item.title}
+          </h3>
+          <p class="text-indigo-400 text-md font-medium mb-4">
+            {item.subtitle}
+          </p>
+          <p class="text-slate-200 text-md leading-relaxed text-wrap">
+            {item.description}
+          </p>
+        </div>
+
+      </div>
+    </div>
+  ))}
+</Swiper>
+    </div>
+
+    
+
+    <!-- CTA opcional -->
+    <div class="text-center mt-12">
+      <p class="text-slate-400 text-sm">
+        ¿Tienes un proyecto similar? 
+        <a href="#contacto" class="text-indigo-400 hover:text-indigo-300 font-semibold ml-1">
+          Conversemos →
+        </a>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Hover scale simple */
+  .success-card {
+    transition: all 0.3s ease;
+  }
+
+  .success-card:hover {
+    transform: scale(1.03);
+  }
+</style>

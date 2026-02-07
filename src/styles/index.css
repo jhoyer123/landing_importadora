@@ -1,0 +1,21 @@
+@import "@fontsource/manrope/400.css";
+@import "@fontsource/manrope/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/700.css";
+
+@import "tailwindcss";
+
+@theme {
+  --font-body: "Inter", sans-serif;
+  --font-title: "Manrope", sans-serif;
+}
+
+:root {
+  --color-accent: #ffffff;
+  --color-accent-foreground: #212121;
+}
+
+@theme inline {
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
+}

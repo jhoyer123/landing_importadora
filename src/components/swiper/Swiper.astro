@@ -1,0 +1,87 @@
+---
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+interface Props {
+  id?: string;
+}
+
+const { id = "swiper-reutilizable" } = Astro.props;
+---
+
+<div class="swiper-container-wrapper relative">
+  <div class="swiper" id={id}>
+    <div class="swiper-wrapper">
+      <slot />
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+<style>
+  .swiper {
+    width: 100%;
+    padding-bottom: 50px;
+  }
+
+  .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  :global(.swiper-slide) {
+    height: auto;
+    display: flex;
+  }
+
+  :global(.swiper-button-next:after),
+  :global(.swiper-button-prev:after) {
+    font-size: 18px;
+    font-weight: bold;
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+  document.addEventListener("astro:page-load", () => {
+    initSwipers();
+  });
+
+  initSwipers();
+
+  function initSwipers() {
+    const swipers = document.querySelectorAll(".swiper");
+
+    swipers.forEach((swiperEl) => {
+      new Swiper(swiperEl as HTMLElement, {
+        modules: [Navigation, Pagination, Autoplay],
+        loop: true,
+        spaceBetween: 20,
+        slidesPerView: 1,
+
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+
+        breakpoints: {
+          640: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3, spaceBetween: 30 },
+        },
+
+        navigation: {
+          nextEl: swiperEl.querySelector(".swiper-button-next") as HTMLElement,
+          prevEl: swiperEl.querySelector(".swiper-button-prev") as HTMLElement,
+        },
+
+        pagination: {
+          el: swiperEl.querySelector(".swiper-pagination") as HTMLElement,
+          clickable: true,
+        },
+      });
+    });
+  }
+</script>

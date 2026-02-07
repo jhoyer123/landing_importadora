@@ -1,0 +1,49 @@
+---
+import Menu from "@/icons/Menu.astro";
+import MobileMenu from "@/components/header/MobilMenu.astro";
+---
+
+<header class="absolute top-0 w-full z-50 h-auto">
+  <!-- Logo de la empresa -->
+  <span class="font-bold text-2xl absolute top-5 left-5">LOGO</span>
+  <!-- button open Menu -->
+  <button
+    id="open-menu-btn"
+    class="fixed top-5 right-5 rounded-md lg:hidden bg-gray-500/50 p-2"
+    aria-label="Abrir menú móvil"
+  >
+    <Menu class="w-6 h-6" />
+  </button>
+  <MobileMenu />
+</header>
+
+<script>
+  // Seleccionamos los elementos del DOM
+  const menu = document.getElementById("mobile-menu");
+  const openBtn = document.getElementById("open-menu-btn");
+  const closeBtn = document.getElementById("close-menu-btn");
+
+  const btnMenu = document.querySelectorAll(".btn-menu");
+
+  // Función para abrir el menú
+  function openMenu() {
+    menu?.classList.remove("-translate-x-full"); // Quita la clase que lo oculta
+    menu?.classList.add("translate-x-0"); // Añade clase para mostrarlo
+    openBtn?.classList.add("hidden"); // Oculta el botón de abrir menú
+  }
+
+  // Función para cerrar el menú
+  function closeMenu() {
+    menu?.classList.remove("translate-x-0"); // Quita la clase que lo muestra
+    menu?.classList.add("-translate-x-full"); // Añade clase para ocultarlo
+    openBtn?.classList.remove("hidden"); // Muestra el botón de abrir menú
+  }
+
+  btnMenu.forEach((btn) => {
+    btn.addEventListener("click", closeMenu); // Cierra el menú al hacer click en cualquier enlace
+  });
+
+  // Event listeners (escuchadores de eventos)
+  openBtn?.addEventListener("click", openMenu); // Cuando se hace click en abrir
+  closeBtn?.addEventListener("click", closeMenu); // Cuando se hace click en cerrar
+</script>

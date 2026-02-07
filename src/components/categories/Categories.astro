@@ -1,0 +1,276 @@
+---
+import Crane from "@/icons/Crane.astro";
+import Car from "@/icons/Car.astro";
+import Cpu from "@/icons/Cpu.astro";
+
+import cat1 from "@/images/cat1.jpg";
+import cat2 from "@/images/cat2.jpg";
+import cat3 from "@/images/cat3.jpg";
+import { Image } from "astro:assets";
+
+interface Category {
+  title: string;
+  description: string;
+  icon: any;
+  image: ImageMetadata;
+  clasName?: string;
+  id: string;
+}
+
+const categories: Category[] = [
+  {
+    id: "category-0",
+    title: "Maquinaria y Proyectos Industriales",
+    description:
+      "Logística para equipo pesado y plantas completas. Manejo de carga sobredimensionada y proyectos especiales.",
+    icon: Crane,
+    image: cat1,
+    clasName: "text-red-500",
+  },
+  {
+    id: "category-1",
+    title: "Sector Automotriz",
+    description:
+      "Importación especializada de vehículos de subasta (Copart/IAAI) y repuestos originales, cumpliendo con los años de fabricación permitidos.",
+    icon: Car,
+    image: cat2,
+    clasName: "text-blue-500",
+  },
+  {
+    id: "category-2",
+    title: "Tecnología y Suministros",
+    description:
+      "Importación de electrónica de consumo y equipos de energía renovable con asesoría en beneficios fiscales vigentes.",
+    icon: Cpu,
+    image: cat3,
+    clasName: "text-green-500",
+  },
+];
+---
+
+<!-- Special Categories -->
+<section class="w-full py-30 px-4" id="specialty">
+  <div class="max-w-6xl mx-auto flex flex-col gap-10 lg:p-0 rounded-xl relative">
+    <!-- Title -->
+    <h2
+      class="font-title text-xl font-bold text-center md:text-2xl lg:text-4xl"
+    >
+      Sectores de Especialidad
+    </h2>
+    <!-- description -->
+    <p class="text-center font-body text-base md:px-20">
+      Soluciones logísticas adaptadas a cada tipo de operación
+    </p>
+    <!-- Grid -->
+    <div
+      class="relative z-10 lg:grid lg:grid-cols-12 lg:gap-5 lg:items-center p-2 lg:py-15 lg:pr-8"
+    >
+      <div class="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
+        <!-- Background Color -->
+        <div class="absolute inset-0 grid grid-cols-12 size-full z-0">
+          <div
+            class="col-span-full lg:col-span-7 lg:col-start-6 bg-gray-200 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full"
+          >
+          </div>
+        </div>
+        <!-- Tab Navs -->
+        <nav
+          class="grid gap-4 relative z-10"
+          aria-label="Tabs"
+          role="tablist"
+          aria-orientation="vertical"
+        >
+          {
+            categories.map((item, index) => (
+              <button
+                type="button"
+                class={`category-btn border border-gray-500 text-start p-4 md:p-5 rounded-xl transition-all duration-300 ${index === 0 ? "active bg-white shadow-lg" : "hover:bg-white/50"}`}
+                data-category-index={index}
+                role="tab"
+              >
+                <span class="flex flex-col w-full items-between md:flex-row gap-5 md:gap-15 lg:gap-5">
+                  <item.icon
+                    className={`size-10 md:size-25 ${item.clasName}`}
+                  />
+                  <span class="grow space-y-5">
+                    <span class="block text-lg font-semibold text-foreground">
+                      {item.title}
+                    </span>
+                    <span class="block mt-1 text-foreground">
+                      {item.description}
+                    </span>
+                  </span>
+                </span>
+              </button>
+            ))
+          }
+        </nav>
+        <!-- End Tab Navs -->
+      </div>
+      <!-- End Col -->
+
+      <div class="lg:col-span-6">
+        <div class="relative">
+          <!-- Tab Content - Contenedor de imágenes CORREGIDO -->
+          <div class="image-container relative w-full aspect-square">
+            {
+              categories.map((item, index) => (
+                <div
+                  class={`category-image absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${index === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+                  data-image-index={index}
+                >
+                  <Image
+                    width={1000}
+                    height={1000}
+                    class="shadow-xl rounded-xl w-full h-full object-cover"
+                    src={item.image}
+                    alt={item.title}
+                  />
+                </div>
+              ))
+            }
+          </div>
+          <!-- End Tab Content -->
+
+          <!-- SVG Element -->
+          <div
+            class="hidden absolute z-5 top-0 end-0 translate-x-20 lg:block lg:translate-x-20"
+          >
+            <svg
+              class="w-16 h-auto text-orange-500"
+              width="121"
+              height="135"
+              viewBox="0 0 121 135"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 16.4754C11.7688 27.4499 21.2452 57.3224 5 89.0164"
+                stroke="currentColor"
+                stroke-width="10"
+                stroke-linecap="round"></path>
+              <path
+                d="M33.6761 112.104C44.6984 98.1239 74.2618 57.6776 83.4821 5"
+                stroke="currentColor"
+                stroke-width="10"
+                stroke-linecap="round"></path>
+              <path
+                d="M50.5525 130C68.2064 127.495 110.731 117.541 116 78.0874"
+                stroke="currentColor"
+                stroke-width="10"
+                stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <!-- End SVG Element -->
+        </div>
+      </div>
+      <!-- End Col -->
+    </div>
+  </div>
+</section>
+<!-- End Features -->
+
+<script>
+  // Script para manejar el hover y cambio de imágenes
+  function initCategoryHover() {
+    const categoryButtons = document.querySelectorAll(".category-btn");
+    const categoryImages = document.querySelectorAll(".category-image");
+    let currentIndex = 0;
+
+    console.log("Botones encontrados:", categoryButtons.length);
+    console.log("Imágenes encontradas:", categoryImages.length);
+
+    function switchImage(newIndex: number) {
+      console.log(`Cambiando de imagen ${currentIndex} a ${newIndex}`);
+
+      if (newIndex === currentIndex) return;
+
+      // Ocultar imagen actual
+      const currentImage = categoryImages[currentIndex];
+      if (currentImage) {
+        currentImage.classList.remove("opacity-100", "z-10");
+        currentImage.classList.add("opacity-0", "z-0");
+      }
+
+      // Remover clase active del botón actual
+      const currentBtn = categoryButtons[currentIndex];
+      if (currentBtn) {
+        currentBtn.classList.remove("active", "bg-white", "shadow-lg");
+        currentBtn.classList.add("hover:bg-white/50");
+      }
+
+      // Mostrar nueva imagen
+      const newImage = categoryImages[newIndex];
+      if (newImage) {
+        newImage.classList.remove("opacity-0", "z-0");
+        newImage.classList.add("opacity-100", "z-10");
+      }
+
+      // Activar nuevo botón
+      const newBtn = categoryButtons[newIndex];
+      if (newBtn) {
+        newBtn.classList.add("active", "bg-white", "shadow-lg");
+        newBtn.classList.remove("hover:bg-white/50");
+      }
+
+      currentIndex = newIndex;
+    }
+
+    // Agregar event listeners a los botones
+    categoryButtons.forEach((btn) => {
+      // Hover para cambiar imagen
+      btn.addEventListener("mouseenter", () => {
+        const index = parseInt(btn.getAttribute("data-category-index") || "0");
+        console.log("Hover en botón:", index);
+        switchImage(index);
+      });
+
+      // Click para fijar la selección
+      btn.addEventListener("click", () => {
+        const index = parseInt(btn.getAttribute("data-category-index") || "0");
+        console.log("Click en botón:", index);
+        switchImage(index);
+      });
+    });
+  }
+
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCategoryHover);
+  } else {
+    initCategoryHover();
+  }
+
+  // También para transiciones de Astro
+  document.addEventListener("astro:page-load", initCategoryHover);
+</script>
+
+<style>
+  /* Contenedor de imágenes con altura definida */
+  .image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Relación 1:1 (cuadrado) */
+    min-height: 400px;
+  }
+
+  /* Cada imagen ocupa todo el contenedor */
+  .category-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  /* Estilo para el botón activo */
+  .category-btn.active {
+    transform: translateX(-3px);
+  }
+
+  /* Transiciones suaves */
+  .category-btn {
+    transition: all 0.3s ease;
+  }
+</style>

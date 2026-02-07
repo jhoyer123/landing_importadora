@@ -1,0 +1,136 @@
+---
+/**
+ * StatsSection Component
+ * 
+ * A responsive statistics showcase component featuring a hero image
+ * alongside key business metrics. Implements a two-column layout that
+ * adapts to single column on mobile devices.
+ */
+
+ import Certificate from "@/icons/Certificate.astro";
+ import Container from "@/icons/Container.astro";
+ import FileCheck from "@/icons/FileCheck.astro";
+ import Clock from "@/icons/Clock.astro";
+
+interface ServiceItem {
+  label: string;
+  description: string;
+  icon: any;
+}
+
+const serviceFirst: ServiceItem[] = [
+  {
+    label: "Gestión Aduanera Especializada",
+    description: "clasificación arancelaria precisa para optimizar el pago de tributos (GA, IVA) y evitar contravenciones. Gestión total de documentos (Bill of Lading, CRT, MIC/DTA).",
+    icon: Container
+  },
+  {
+    label: "Transporte Multimodal (FCL / LCL)",
+    description: "Soluciones de contenedor completo o carga consolidada desde los principales puertos del mundo hasta Arica o Iquique, con tramo final terrestre hasta Bolivia.",
+    icon: FileCheck,
+  },
+  {
+    label: "Verificación de Proveedores (Sourcing)",
+    description: "Inspecciones de pre-embarque en origen y validación legal de fábricas en China para evitar estafas y asegurar la calidad de tu pedido.",
+    icon: Clock,
+  },
+  {
+    label: "Permisos y Certificaciones",
+    description: "Gestión ante SENASAG, IBMETRO o Sustancias Controladas, garantizando el cumplimiento de la normativa técnica antes de que la carga llegue a frontera.",
+    icon: Certificate,
+  },
+];
+
+const serviceSecond : ServiceItem[] = [
+ {
+    label: "Verificación de Proveedores (Sourcing)",
+    description: "Inspecciones de pre-embarque en origen y validación legal de fábricas en China para evitar estafas y asegurar la calidad de tu pedido.",
+    icon: Clock,
+  },
+  {
+    label: "Permisos y Certificaciones",
+    description: "Gestión ante SENASAG, IBMETRO o Sustancias Controladas, garantizando el cumplimiento de la normativa técnica antes de que la carga llegue a frontera.",
+    icon: Clock,
+  },
+];
+---
+
+<section class="w-full py-30 relative px-4" id="services">
+  <div class="max-w-6xl mx-auto relative z-5 flex flex-col gap-10">
+    <!-- title section -->
+     <h2 class="font-title text-xl font-bold text-center md:text-2xl lg:text-4xl">Servicios Especializados</h2>
+    <!-- Main grid container: image + stats -->
+
+    <!-- description -->
+     <p class="text-center font-body text-base md:px-20">No solo movemos carga, gestionamos tu inversión. Especialistas en desaduanamiento, logística internacional y normativa vigente para asegurar que tu mercadería llegue a destino sin multas ni demoras.</p>
+
+      <!-- Statistics grid -->
+      <div class="space-y-8 grid md:grid-cols-2 md:gap-10 md:space-y-0">
+        {serviceFirst.map((stat, index) => (
+          <div 
+            class="flex flex-col gap-6 p-10 shadow-xl border-b-4 border-b-black bg-white rounded-xl hover:shadow-md border border-stone-200 items-center justify-between hover:border-accent hover:scale-105 transition duration-300
+            md:gap-10"
+          >
+             <!-- Stat icon -->
+            <div class="shrink-0 w-auto  text-stone-500">
+              <stat.icon className="w-15 h-15" />
+            </div>
+            <!-- Stat content -->
+            <div class="flex-1 flex flex-col justify-center space-y-2">
+              <h4 class="text-center text-base font-bold text-stone-900 uppercase tracking-wide">
+                {stat.label}
+              </h4>
+              <p class="text-center text-sm text-stone-600 leading-relaxed
+              md:text-base">
+                {stat.description}
+              </p>
+            </div>
+          </div>
+        ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /**
+   * Custom animations and refinements
+   * Enhances the user experience with subtle interactions
+   */
+  
+  /* Smooth image loading */
+  img {
+    animation: fadeIn 0.6s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Staggered stat card animation */
+  .space-y-8 > div {
+    animation: slideInRight 0.5s ease-out backwards;
+  }
+
+  .space-y-8 > div:nth-child(1) { animation-delay: 0.1s; }
+  .space-y-8 > div:nth-child(2) { animation-delay: 0.2s; }
+  .space-y-8 > div:nth-child(3) { animation-delay: 0.3s; }
+  .space-y-8 > div:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>

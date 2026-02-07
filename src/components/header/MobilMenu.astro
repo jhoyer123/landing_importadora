@@ -1,0 +1,114 @@
+---
+import facebook from "@/assets/facebook.svg";
+import instagram from "@/assets/instagram.svg";
+import tiktok from "@/assets/tiktok.svg";
+import x from "@/assets/x.svg";
+
+import Close from "@/icons/Close.astro";
+
+interface SocialMedia {
+  name: string;
+  link: string;
+  icon: ImageMetadata;
+  ariaLabel: string;
+}
+
+const socialMedias: SocialMedia[] = [
+  {
+    name: "Facebook",
+    link: "https://facebook.com",
+    icon: facebook,
+    ariaLabel: "Siguenos en Facebook",
+  },
+  {
+    name: "Instagram",
+    link: "https://instagram.com",
+    icon: instagram,
+    ariaLabel: "Siguenos en Instagram",
+  },
+  {
+    name: "TikTok",
+    link: "https://tiktok.com",
+    icon: tiktok,
+    ariaLabel: "Siguenos en TikTok",
+  },
+  { name: "X", link: "https://x.com", icon: x, ariaLabel: "Siguenos en X" },
+];
+
+interface MenuItem {
+  name: string;
+  link: string;
+}
+
+const itemsMenu: MenuItem[] = [
+  { name: "Home", link: "/" },
+  { name: "Servicios", link: "#services" },
+  { name: "Proceso", link: "#process" },
+  { name: "Especialidad", link: "#specialty" },
+  { name: "Resultados", link: "#results" },
+];
+---
+
+<div
+  id="mobile-menu"
+  class="h-screen w-[85vw] fixed z-50 -translate-x-full transition-transform duration-300 ease-in-out
+  lg:translate-x-0 lg:w-full lg:h-auto"
+>
+  <nav
+    class="w-full h-full bg-white backdrop-blur-md border border-white/10 shadow-xl py-20 px-3
+    sm:px-10
+    md:px-15
+    lg:px-10 lg:h-auto lg:flex lg:w-full lg:justify-between lg:py-4"
+  >
+    <!-- button close -->
+    <button
+      id="close-menu-btn"
+      class="absolute top-5 right-5 p-2 rounded-full hover:bg-gray-100 transition-colors
+      lg:hidden"
+    >
+      <Close />
+    </button>
+    <!-- logo -->
+    <h2 class="text-2xl font-title font-bold">LOGO</h2>
+    <!-- items menu -->
+    <ul class="flex flex-col gap-10 mt-20
+    lg:flex-row lg:mt-0">
+      {
+        itemsMenu.map((item) => (
+          <li>
+            <a href={item.link} class="font-body text-xl font-bold btn-menu">
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <!-- social media -->
+    <div
+      class="absolute bottom-5 left-5 flex gap-5
+    sm:gap-7 sm:left-10
+    md:gap-9 md:left-15
+    lg:hidden"
+    >
+      {
+        socialMedias.map((media) => (
+          <a
+            href={media.link}
+            aria-label={media.ariaLabel}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={media.icon.src}
+              alt={media.name}
+              width="30"
+              height="30"
+              class="w-7 h-7
+              sm:w-8 sm:h-8"
+            />
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+</div>

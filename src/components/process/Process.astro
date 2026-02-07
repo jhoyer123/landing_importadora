@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 
+import processImage from "@/images/processImage.png";
+
 interface Step {
   title: string;
   description: string;
@@ -118,7 +120,7 @@ const steps: Step[] = [
       <Image
         width={200}
         height={200}
-        src="/src/images/processImage.png"
+        src={processImage}
         alt="Proceso de importación"
         class="w-full rounded-lg object-cover"
       />

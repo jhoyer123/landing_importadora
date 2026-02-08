@@ -16,74 +16,77 @@ interface ServiceItem {
   label: string;
   description: string;
   icon: any;
+  img: string;
 }
 
 const serviceFirst: ServiceItem[] = [
   {
     label: "Gestión Aduanera Especializada",
     description: "clasificación arancelaria precisa para optimizar el pago de tributos (GA, IVA) y evitar contravenciones. Gestión total de documentos (Bill of Lading, CRT, MIC/DTA).",
-    icon: Container
+    icon: Container,
+    img: "https://i.pinimg.com/1200x/86/29/2a/86292a40368664b0655fc88e6e2014cc.jpg"
   },
   {
     label: "Transporte Multimodal (FCL / LCL)",
     description: "Soluciones de contenedor completo o carga consolidada desde los principales puertos del mundo hasta Arica o Iquique, con tramo final terrestre hasta Bolivia.",
     icon: FileCheck,
+    img: "https://i.pinimg.com/736x/a5/15/c5/a515c50d2bbfed11f2dc4b1631e9f9e0.jpg"
   },
   {
     label: "Verificación de Proveedores (Sourcing)",
     description: "Inspecciones de pre-embarque en origen y validación legal de fábricas en China para evitar estafas y asegurar la calidad de tu pedido.",
     icon: Clock,
+    img: "https://i.pinimg.com/736x/1e/a3/4e/1ea34e8acc4952992545a1ac75d4466f.jpg"
   },
   {
     label: "Permisos y Certificaciones",
     description: "Gestión ante SENASAG, IBMETRO o Sustancias Controladas, garantizando el cumplimiento de la normativa técnica antes de que la carga llegue a frontera.",
     icon: Certificate,
-  },
-];
-
-const serviceSecond : ServiceItem[] = [
- {
-    label: "Verificación de Proveedores (Sourcing)",
-    description: "Inspecciones de pre-embarque en origen y validación legal de fábricas en China para evitar estafas y asegurar la calidad de tu pedido.",
-    icon: Clock,
-  },
-  {
-    label: "Permisos y Certificaciones",
-    description: "Gestión ante SENASAG, IBMETRO o Sustancias Controladas, garantizando el cumplimiento de la normativa técnica antes de que la carga llegue a frontera.",
-    icon: Clock,
+    img: "https://i.pinimg.com/1200x/da/56/f9/da56f9ef118d68b319561182a8319327.jpg"
   },
 ];
 ---
 
-<section class="w-full py-30 relative px-4" id="services">
+<section class="w-full py-30 relative px-4 glass-wet-gradient" id="services">
   <div class="max-w-6xl mx-auto relative z-5 flex flex-col gap-10">
     <!-- title section -->
-     <h2 class="font-title text-xl font-bold text-center md:text-2xl lg:text-4xl">Servicios Especializados</h2>
+     <h2 class="text-gray-100 font-title text-xl font-bold text-center md:text-2xl lg:text-4xl">Servicios Especializados</h2>
     <!-- Main grid container: image + stats -->
 
     <!-- description -->
-     <p class="text-center font-body text-base md:px-20">No solo movemos carga, gestionamos tu inversión. Especialistas en desaduanamiento, logística internacional y normativa vigente para asegurar que tu mercadería llegue a destino sin multas ni demoras.</p>
+     <p class="text-gray-200 text-center font-body text-base md:px-20">No solo movemos carga, gestionamos tu inversión. Especialistas en desaduanamiento, logística internacional y normativa vigente para asegurar que tu mercadería llegue a destino sin multas ni demoras.</p>
 
       <!-- Statistics grid -->
-      <div class="space-y-8 grid md:grid-cols-2 md:gap-10 md:space-y-0">
+      <div class="space-y-8 grid 
+      md:grid-cols-2 md:gap-6 md:space-y-0
+      lg:grid-cols-4">
         {serviceFirst.map((stat, index) => (
           <div 
-            class="flex flex-col gap-6 p-10 shadow-xl border-b-4 border-b-black bg-white rounded-xl hover:shadow-md border border-stone-200 items-center justify-between hover:border-accent hover:scale-105 transition duration-300
+            class="pt-5 flex flex-col gap-6 shadow-xl border-b-4 border-b-black bg-white rounded-xl hover:shadow-md border border-stone-200 items-center justify-between hover:border-accent hover:scale-105 transition duration-300
             md:gap-10"
           >
              <!-- Stat icon -->
-            <div class="shrink-0 w-auto  text-stone-500">
+            <div class="shrink-0 w-auto">
               <stat.icon className="w-15 h-15" />
             </div>
             <!-- Stat content -->
-            <div class="flex-1 flex flex-col justify-center space-y-2">
-              <h4 class="text-center text-base font-bold text-stone-900 uppercase tracking-wide">
+            <div class="flex-1 font-body flex flex-col justify-between space-y-2 px-5">
+              <h4 class="text-base font-bold text-stone-900 uppercase tracking-wide">
                 {stat.label}
               </h4>
-              <p class="text-center text-sm text-stone-600 leading-relaxed
+              <p class="text-sm text-stone-600 leading-relaxed
               md:text-base">
                 {stat.description}
               </p>
+            </div>
+
+              <!-- Stat image -->
+            <div class="relative w-full h-80 rounded-lg overflow-hidden">
+              <img
+                src={stat.img}
+                alt={stat.label}
+                class="absolute w-full h-full object-cover object-center"
+              />
             </div>
           </div>
         ))}

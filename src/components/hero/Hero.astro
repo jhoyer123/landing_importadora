@@ -10,8 +10,9 @@ import Phone from "@/icons/Phone.astro";
   <Image
     src={heroBackground}
     alt="Hero Image"
-    width="1000"
-    height="1000"
+    width="1200"
+    height="1200"
+    quality="high"
     class="absolute z-0 inset-0 object-cover h-screen w-full object-center md:hidden"
   />
 
@@ -20,46 +21,24 @@ import Phone from "@/icons/Phone.astro";
     poster="/src/images/heroBackground.jpg"
     class="absolute inset-0 w-full h-full"
   >
-    <!-- overlide -->
     <div
-      class="absolute inset-0 bg-linear-to-t from-black/20 via-black/10 to-transparent"
-    >
-    </div>
-    <div
-      class="h-screen w-full max-w-6xl mx-auto flex flex-col justify-center text-center gap-5 mt-12
+      class="h-screen w-full max-w-6xl mx-auto flex flex-col justify-center items-center text-center gap-15 mt-12
       sm:items-center sm:justify-center sm:mt-0
-      lg:items-start lg:px-4"
+      lg:items-start md:px-4"
     >
       <!-- titulo -->
       <div class="relative">
         <h1
-          class="font-title font-extrabold text-3xl text-white text-start relative p-2 z-10
-          sm:text-5xl sm:text-center
+          class="font-title font-extrabold text-3xl text-white text-start relative p-2 px-8 z-10
+          sm:text-5xl sm:text-start
           lg:text-start lg:max-w-6xl
           xl:text-7xl"
         >
           Tu socio estratégico para importar desde cualquier lugar del mundo
           hasta Bolivia.
         </h1>
-        <div
-          class="absolute z-5 inset-0 h-auto bg-linear-to-r from-black/30 via-black/20 to-transparent blur-xl
-          sm:bg-linear-to-t sm:from-black/20 sm:via-black/10 sm:to-transparent
-          lg:bg-linear-50"
-        >
-        </div>
       </div>
-      <!-- description -->
-      <div class="relative flex justify-end items-end">
-        <p
-          class="inline-block font-body text-sm md:text-md text-white/90 text-center relative z-10 bg-black/70 p-2 w-auto max-w-70 rounded-l-2xl
-          sm:text-xl sm:rounded-2xl sm:text-center sm:max-w-100
-          md:max-w-xl md:p-5"
-        >
-          No solo movemos carga, gestionamos tu inversión. Especialistas en
-          desaduanamiento, logística internacional y normativa vigente para
-          asegurar que tu mercadería llegue a destino sin multas ni demoras.
-        </p>
-      </div>
+
       <!-- button -->
       <a
         href="https://web.whatsapp.com/"
@@ -76,6 +55,19 @@ import Phone from "@/icons/Phone.astro";
           <Phone />
         </span>
       </a>
+      <!-- description -->
+      <div class="relative flex justify-center items-end">
+        <p
+          class="inline-block font-body text-sm md:text-md text-white/90 text-center relative z-10 p-2 w-auto max-w-70 rounded-l-2xl
+          sm:text-xl sm:rounded-2xl sm:max-w-100
+          md:max-w-xl md:p-5 md:text-center
+          lg:text-left"
+        >
+          No solo movemos carga, gestionamos tu inversión. Especialistas en
+          desaduanamiento, logística internacional y normativa vigente para
+          asegurar que tu mercadería llegue a destino sin multas ni demoras.
+        </p>
+      </div>
     </div>
   </VideoBackground>
 </section>

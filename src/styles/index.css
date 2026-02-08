@@ -19,3 +19,30 @@
   --color-accent: var(--color-accent);
   --color-accent-foreground: var(--color-accent-foreground);
 }
+
+/* Glass effect with depth */
+.glass-wet-deep {
+  background: rgba(20, 20, 20, 0.4);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+/* Top-to-bottom gradient: deep black to transparent wet glass */
+.glass-wet-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.65) 35%,
+    rgba(20, 20, 20, 0.35) 70%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* desde 1024 se aplica el grafinte sino no */
+@media (max-width: 1023px) {
+  .glass-wet-deep {
+    background: white;
+  }
+}

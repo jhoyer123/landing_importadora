@@ -5,13 +5,30 @@ import "swiper/css/pagination";
 
 interface Props {
   id?: string;
+  direction?: "horizontal" | "vertical";
+  mobile?: number;
+  tablet?: number;
+  desktop?: number;
 }
 
-const { id = "swiper-reutilizable" } = Astro.props;
+const {
+  id = "swiper-reutilizable",
+  direction = "horizontal",
+  mobile = 1,
+  tablet = 2,
+  desktop = 3,
+} = Astro.props;
 ---
 
 <div class="swiper-container-wrapper relative">
-  <div class="swiper" id={id}>
+  <div
+    class="swiper"
+    id={id}
+    data-direction={direction}
+    data-mobile={mobile}
+    data-tablet={tablet}
+    data-desktop={desktop}
+  >
     <div class="swiper-wrapper">
       <slot />
     </div>
@@ -22,22 +39,20 @@ const { id = "swiper-reutilizable" } = Astro.props;
 <style>
   .swiper {
     width: 100%;
-    padding-bottom: 50px;
+    /* Quitamos el padding-bottom fijo si no quieres huecos */
+    padding-bottom: 40px;
   }
 
   .swiper-wrapper {
+    /* Esto permite que si las cards tienen distinto contenido, 
+       todas se estiren para medir lo mismo que la más alta del grupo */
     align-items: stretch;
   }
 
   :global(.swiper-slide) {
+    /* ESTA ES LA CLAVE: altura automática según el contenido */
     height: auto;
     display: flex;
-  }
-
-  :global(.swiper-button-next:after),
-  :global(.swiper-button-prev:after) {
-    font-size: 18px;
-    font-weight: bold;
   }
 </style>
 
@@ -45,43 +60,42 @@ const { id = "swiper-reutilizable" } = Astro.props;
   import Swiper from "swiper";
   import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-  document.addEventListener("astro:page-load", () => {
-    initSwipers();
-  });
-
-  initSwipers();
-
   function initSwipers() {
     const swipers = document.querySelectorAll(".swiper");
 
-    swipers.forEach((swiperEl) => {
-      new Swiper(swiperEl as HTMLElement, {
+    swipers.forEach((el) => {
+      const { direction, mobile, tablet, desktop } = (el as HTMLElement)
+        .dataset;
+
+      new Swiper(el as HTMLElement, {
         modules: [Navigation, Pagination, Autoplay],
+        // @ts-ignore
+        direction: direction || "horizontal",
+        // autoHeight: true hace que el contenedor se ajuste a la card activa
+        autoHeight: direction === "vertical" ? true : false,
         loop: true,
         spaceBetween: 20,
-        slidesPerView: 1,
+        slidesPerView: Number(mobile),
 
+        // ← AUTOPLAY DIRECTO
         autoplay: {
-          delay: 3000,
+          delay: 4000,
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         },
 
         breakpoints: {
-          640: { slidesPerView: 2, spaceBetween: 20 },
-          1024: { slidesPerView: 3, spaceBetween: 30 },
+          640: { slidesPerView: Number(tablet) },
+          1024: { slidesPerView: Number(desktop) },
         },
-
-        navigation: {
-          nextEl: swiperEl.querySelector(".swiper-button-next") as HTMLElement,
-          prevEl: swiperEl.querySelector(".swiper-button-prev") as HTMLElement,
-        },
-
         pagination: {
-          el: swiperEl.querySelector(".swiper-pagination") as HTMLElement,
+          el: el.querySelector(".swiper-pagination") as HTMLElement,
           clickable: true,
         },
       });
     });
   }
+
+  document.addEventListener("astro:page-load", initSwipers);
+  initSwipers();
 </script>

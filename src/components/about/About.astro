@@ -1,3 +1,9 @@
+---
+import aboutMundo from "@/images/aboutMundo.webp";
+import aboutGroup from "@/images/aboutGroup.webp";
+import { Image } from "astro:assets";
+---
+
 <section class="bg-white py-30" id="about">
   <div class="max-w-6xl mx-auto px-4">
     <!-- Header con beneficios -->
@@ -16,8 +22,8 @@
         <!-- Imágenes lado izquierdo -->
         <div class="relative">
           <div class="relative z-0">
-            <img
-              src="/src/images/aboutMundo.png"
+            <Image
+              src={aboutMundo}
               alt="Logística y transporte"
               class="rounded-lg w-full object-cover"
             />
@@ -27,8 +33,8 @@
           md:w-100 md:h-48 md:-mr-12 md:-mb-12
           lg:w-48 lg:h-40 lg:-mr-8 lg:-mb-8"
           >
-            <img
-              src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=250&h=200&fit=crop"
+            <Image
+              src={aboutGroup}
               alt="Contenedores"
               class="rounded-lg w-full h-full object-cover border-4 border-white shadow-lg"
             />

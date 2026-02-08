@@ -12,11 +12,17 @@
  import FileCheck from "@/icons/FileCheck.astro";
  import Clock from "@/icons/Clock.astro";
 
+import { Image } from "astro:assets";
+import services1 from "@/images/services1.webp";
+import services2 from "@/images/services2.webp";
+import services3 from "@/images/services3.webp";
+import services4 from "@/images/services4.webp";
+
 interface ServiceItem {
   label: string;
   description: string;
   icon: any;
-  img: string;
+  img: ImageMetadata;
 }
 
 const serviceFirst: ServiceItem[] = [
@@ -24,25 +30,25 @@ const serviceFirst: ServiceItem[] = [
     label: "Gestión Aduanera Especializada",
     description: "clasificación arancelaria precisa para optimizar el pago de tributos (GA, IVA) y evitar contravenciones. Gestión total de documentos (Bill of Lading, CRT, MIC/DTA).",
     icon: Container,
-    img: "https://i.pinimg.com/1200x/86/29/2a/86292a40368664b0655fc88e6e2014cc.jpg"
+    img: services1
   },
   {
     label: "Transporte Multimodal (FCL / LCL)",
     description: "Soluciones de contenedor completo o carga consolidada desde los principales puertos del mundo hasta Arica o Iquique, con tramo final terrestre hasta Bolivia.",
     icon: FileCheck,
-    img: "https://i.pinimg.com/736x/a5/15/c5/a515c50d2bbfed11f2dc4b1631e9f9e0.jpg"
+    img: services2
   },
   {
     label: "Verificación de Proveedores (Sourcing)",
     description: "Inspecciones de pre-embarque en origen y validación legal de fábricas en China para evitar estafas y asegurar la calidad de tu pedido.",
     icon: Clock,
-    img: "https://i.pinimg.com/736x/1e/a3/4e/1ea34e8acc4952992545a1ac75d4466f.jpg"
+    img: services3
   },
   {
     label: "Permisos y Certificaciones",
     description: "Gestión ante SENASAG, IBMETRO o Sustancias Controladas, garantizando el cumplimiento de la normativa técnica antes de que la carga llegue a frontera.",
     icon: Certificate,
-    img: "https://i.pinimg.com/1200x/da/56/f9/da56f9ef118d68b319561182a8319327.jpg"
+    img: services4
   },
 ];
 ---
@@ -81,7 +87,7 @@ const serviceFirst: ServiceItem[] = [
 
               <!-- Stat image -->
             <div class="relative w-full h-80 rounded-lg overflow-hidden">
-              <img
+              <Image
                 src={stat.img}
                 alt={stat.label}
                 class="absolute w-full h-full object-cover object-center"

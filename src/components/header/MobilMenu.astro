@@ -1,15 +1,15 @@
 ---
-import facebook from "@/assets/facebook.svg";
-import instagram from "@/assets/instagram.svg";
-import tiktok from "@/assets/tiktok.svg";
-import x from "@/assets/x.svg";
+import Facebook from "@/icons/Facebook.astro";
+import Twitter from "@/icons/Twitter.astro";
+import Instagram from "@/icons/Instagram.astro";
+import TikTok from "@/icons/Tiktok.astro";
 
 import Close from "@/icons/Close.astro";
 
 interface SocialMedia {
   name: string;
   link: string;
-  icon: ImageMetadata;
+  icon: typeof Facebook;
   ariaLabel: string;
 }
 
@@ -17,22 +17,27 @@ const socialMedias: SocialMedia[] = [
   {
     name: "Facebook",
     link: "https://facebook.com",
-    icon: facebook,
-    ariaLabel: "Siguenos en Facebook",
+    icon: Facebook,
+    ariaLabel: "Síguenos en Facebook",
   },
   {
     name: "Instagram",
     link: "https://instagram.com",
-    icon: instagram,
-    ariaLabel: "Siguenos en Instagram",
+    icon: Instagram,
+    ariaLabel: "Síguenos en Instagram",
   },
   {
     name: "TikTok",
     link: "https://tiktok.com",
-    icon: tiktok,
-    ariaLabel: "Siguenos en TikTok",
+    icon: TikTok,
+    ariaLabel: "Síguenos en TikTok",
   },
-  { name: "X", link: "https://x.com", icon: x, ariaLabel: "Siguenos en X" },
+  {
+    name: "Twitter",
+    link: "https://twitter.com",
+    icon: Twitter,
+    ariaLabel: "Síguenos en Twitter",
+  },
 ];
 
 interface MenuItem {
@@ -55,7 +60,7 @@ const itemsMenu: MenuItem[] = [
   lg:h-auto lg:top-2 lg:left-1/2 lg:-translate-x-1/2 lg:w-max"
 >
   <nav
-    class="glass-wet-deep w-full h-full py-20 px-3 flex flex-col gap-10 justify-between 
+    class="glass-wet-deep w-full h-full py-20 px-3 flex flex-col gap-10 justify-between
     sm:px-10
     md:px-15
     lg:px-10 lg:h-auto lg:flex-row lg:w-full lg:gap-80 lg:justify-between lg:items-center lg:py-2 lg:rounded-2xl"
@@ -76,7 +81,10 @@ const itemsMenu: MenuItem[] = [
       {
         itemsMenu.map((item) => (
           <li>
-            <a href={item.link} class="font-body text-xl font-bold btn-menu lg:text-base lg:font-medium">
+            <a
+              href={item.link}
+              class="font-body text-xl font-bold btn-menu lg:text-base lg:font-medium"
+            >
               {item.name}
             </a>
           </li>
@@ -85,7 +93,7 @@ const itemsMenu: MenuItem[] = [
     </ul>
     <!-- social media -->
     <div
-      class=" flex justify-between w-full gap-5
+      class="flex justify-between w-full gap-5
     sm:gap-7 sm:left-10
     md:gap-9 md:left-15
     lg:hidden"
@@ -98,14 +106,7 @@ const itemsMenu: MenuItem[] = [
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
-              src={media.icon.src}
-              alt={media.name}
-              width="30"
-              height="30"
-              class="w-7 h-7
-              sm:w-8 sm:h-8"
-            />
+            <media.icon />
           </a>
         ))
       }

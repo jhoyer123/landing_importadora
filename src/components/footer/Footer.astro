@@ -1,13 +1,13 @@
 ---
-import facebook from "@/assets/facebook.svg";
-import instagram from "@/assets/instagram.svg";
-import tiktok from "@/assets/tiktok.svg";
-import x from "@/assets/x.svg";
+import Facebook from "@/icons/Facebook.astro";
+import Twitter from "@/icons/Twitter.astro";
+import Instagram from "@/icons/Instagram.astro";
+import TikTok from "@/icons/Tiktok.astro";
 
 interface SocialMedia {
   name: string;
   link: string;
-  icon: ImageMetadata;
+  icon: typeof Facebook;
   ariaLabel: string;
 }
 
@@ -15,93 +15,219 @@ const socialMedias: SocialMedia[] = [
   {
     name: "Facebook",
     link: "https://facebook.com",
-    icon: facebook,
-    ariaLabel: "Siguenos en Facebook",
+    icon: Facebook,
+    ariaLabel: "Síguenos en Facebook",
   },
   {
     name: "Instagram",
     link: "https://instagram.com",
-    icon: instagram,
-    ariaLabel: "Siguenos en Instagram",
+    icon: Instagram,
+    ariaLabel: "Síguenos en Instagram",
   },
   {
     name: "TikTok",
     link: "https://tiktok.com",
-    icon: tiktok,
-    ariaLabel: "Siguenos en TikTok",
+    icon: TikTok,
+    ariaLabel: "Síguenos en TikTok",
   },
-  { name: "X", link: "https://x.com", icon: x, ariaLabel: "Siguenos en X" },
+  {
+    name: "X",
+    link: "https://x.com",
+    icon: Twitter,
+    ariaLabel: "Síguenos en X",
+  },
 ];
+
+// Cambia estas coordenadas por las de tu ubicación real
+const officeLocation = {
+  lat: -16.5,
+  lng: -68.15,
+  address: "Av. Principal 123, Zona Comercial, Ciudad, País",
+};
 ---
 
 <footer
-  class="text-black bg-white px-4 py-30 md:pt-20 md:pb-10 w-full mx-auto md:px-8 relative"
+  class="bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100"
 >
-  <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-3 md:items-start">
-    <div class="md:col-span-1 text-center md:text-left">
-      <h2 class="text-3xl font-extrabold">LOGO</h2>
-      <p class="mt-2 leading-relaxed text-[15px]">
-        Importadores y distribuidores internacionales, soluciones logísticas y
-        suministro de productos de calidad.
-      </p>
-    </div>
+  <!-- Main Footer Content -->
+  <div class="max-w-6xl mx-auto px-4 pt-16 pb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+      <!-- Company Info Section -->
+      <div class="lg:col-span-4 space-y-6">
+        <div class="space-y-4">
+          <div class="text-2xl font-bold text-white">LOGO</div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Importadores y distribuidores internacionales, soluciones logísticas
+            y suministro de productos de calidad.
+          </p>
+        </div>
 
-    <div class="md:col-span-1">
-      <h3 class="font-semibold mb-2">Contacto</h3>
-      <ul class="space-y-1 text-sm">
-        <li>Dirección: Av. Principal 123, Zona Comercial, Ciudad, País</li>
-        <li>
-          Tel 1: <a href="tel:+59112345678" class="text-blue-600"
-            >+591 123 45678</a
-          >
-        </li>
-        <li>
-          Tel 2: <a href="tel:+59198765432" class="text-blue-600"
-            >+591 987 65432</a
-          >
-        </li>
-        <li>
-          Email: <a href="mailto:contacto@miempresa.com" class="text-blue-600"
-            >contacto@miempresa.com</a
-          >
-        </li>
-        <li>Horario: Lun-Vie 9:00 — 18:00</li>
-      </ul>
-    </div>
+        <!-- Social Media -->
+        <div class="space-y-3">
+          <h3 class="text-sm font-semibold text-white uppercase tracking-wider">
+            Síguenos
+          </h3>
+          <div class="flex gap-3">
+            {
+              socialMedias.map((media) => (
+                <a
+                  href={media.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={media.ariaLabel}
+                  class="group relative w-10 h-10 bg-slate-700/50 hover:bg-slate-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-slate-500/20"
+                >
+                  <media.icon />
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
 
-    <div class="md:col-span-1 text-center md:text-right">
-      <h3 class="font-semibold mb-10 text-center md:text-start">Síguenos</h3>
-      <div class="flex justify-center md:justify-start gap-8 md:mb-0">
-        {
-          socialMedias.map((media) => (
-            <a
-              href={media.link}
-              aria-label={media.ariaLabel}
-              target="_blank"
-              rel="noopener noreferrer"
+      <!-- Contact Information -->
+      <div class="lg:col-span-4 space-y-6">
+        <h3
+          class="text-lg font-semibold text-white border-b border-slate-700 pb-3"
+        >
+          Contacto
+        </h3>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3 group">
+            <svg
+              class="w-5 h-5 text-slate-400 mt-0.5 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <img
-                src={media.icon.src}
-                alt={media.name}
-                width="30"
-                height="30"
-                class="w-7 h-7 sm:w-8 sm:h-8"
-              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <p
+              class="text-sm text-slate-300 group-hover:text-white transition-colors"
+            >
+              {officeLocation.address}
+            </p>
+          </div>
+
+          <div class="flex items-center gap-3 group">
+            <svg
+              class="w-5 h-5 text-slate-400 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              ></path>
+            </svg>
+            <div class="text-sm space-y-1">
+              <a
+                href="tel:+59112345678"
+                class="text-slate-300 hover:text-white transition-colors block"
+              >
+                +591 123 45678
+              </a>
+              <a
+                href="tel:+59198765432"
+                class="text-slate-300 hover:text-white transition-colors block"
+              >
+                +591 987 65432
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 group">
+            <svg
+              class="w-5 h-5 text-slate-400 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+            <a
+              href="mailto:contacto@miempresa.com"
+              class="text-sm text-slate-300 hover:text-white transition-colors"
+            >
+              contacto@miempresa.com
             </a>
-          ))
-        }
+          </div>
+
+          <div class="flex items-center gap-3 group">
+            <svg
+              class="w-5 h-5 text-slate-400 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <p class="text-sm text-slate-300">
+              Lun - Vie: <span class="text-white font-medium">9:00 — 18:00</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Section -->
+      <div class="lg:col-span-4 space-y-3">
+        <h3
+          class="text-lg font-semibold text-white border-b border-slate-700 pb-3"
+        >
+          Ubicación
+        </h3>
+        <div
+          class="relative rounded-xl overflow-hidden shadow-2xl ring-1 ring-slate-700/50 h-64 lg:h-full min-h-50"
+        >
+          <iframe
+            src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.0!2d${officeLocation.lng}!3d${officeLocation.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDMwJzAwLjAiUyA2OMKwMDknMDAuMCJX!5e0!3m2!1ses!2sbo!4v1234567890`}
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación de la oficina"
+            class="absolute inset-0 w-full h-full grayscale-30 hover:grayscale-0 transition-all duration-500"
+          ></iframe>
+        </div>
       </div>
     </div>
   </div>
-  <div class="mt-6 text-center sm:text-left mb-10 sm:mt-8 mx-auto max-w-6xl">
-    &copy; 2026 Importadora MiEmpresa. Todos los derechos reservados.
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-slate-700/50 mt-10">
+    <div class="max-w-6xl mx-auto px-4 py-6">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-slate-400 text-center sm:text-left">
+          © {new Date().getFullYear()}
+          <span class="text-slate-300 font-medium">Importadora MiEmpresa</span>.
+          Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
   </div>
 </footer>
-
-<style scoped>
-  .svg-icon path,
-  .svg-icon polygon,
-  .svg-icon rect {
-    fill: currentColor;
-  }
-</style>

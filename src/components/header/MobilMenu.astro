@@ -4,6 +4,8 @@ import Twitter from "@/icons/Twitter.astro";
 import Instagram from "@/icons/Instagram.astro";
 import TikTok from "@/icons/Tiktok.astro";
 
+import Logo from "@/icons/Logo.astro";
+
 import Close from "@/icons/Close.astro";
 
 interface SocialMedia {
@@ -49,41 +51,65 @@ const itemsMenu: MenuItem[] = [
   { name: "Home", link: "/" },
   { name: "Sobre Nosotros", link: "#about" },
   { name: "Servicios", link: "#services" },
-  { name: "Proceso", link: "#process" },
+  { name: "Como importar", link: "#process" },
   { name: "Resultados", link: "#results" },
 ];
 ---
 
 <div
   id="mobile-menu"
-  class="h-screen w-[85vw] fixed z-50 -translate-x-full transition-transform duration-300 ease-in-out
+  class="h-screen w-[90vw] fixed z-40 -translate-x-full transition-transform duration-300 ease-in-out
   lg:h-auto lg:top-2 lg:left-1/2 lg:-translate-x-1/2 lg:w-max"
 >
   <nav
-    class="glass-wet-deep w-full h-full py-20 px-3 flex flex-col gap-10 justify-between
-    sm:px-10
-    md:px-15
-    lg:px-10 lg:h-auto lg:flex-row lg:w-full lg:gap-80 lg:justify-between lg:items-center lg:py-2 lg:rounded-2xl"
+    class="glass-wet-deep w-full relative h-full flex flex-col gap-10 justify-between
+    lg:px-10 lg:h-auto lg:flex-row lg:w-full lg:gap-40 lg:justify-between lg:items-center lg:py-0 lg:rounded-es-4xl lg:rounded-se-4xl lg:border lg:border-gray-500"
   >
-    <!-- button close -->
-    <button
-      id="close-menu-btn"
-      class="absolute top-5 right-5 p-2 rounded-full hover:bg-gray-100 transition-colors lg:text-gray-100
-      lg:hidden"
+    <div
+      class="bg-[#03223D] w-full flex items-center justify-between px-3 py-5 lg:hidden"
     >
-      <Close />
-    </button>
+      <div
+        class="flex items-center gap-2 font-bold font-sans text-xl
+    lg:text-lg text-gray-100"
+      >
+        <Logo class="w-10 h-auto" />
+        <span>Nox Import</span>
+      </div>
+      <!-- button close -->
+      <button
+        id="close-menu-btn"
+        class="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-50
+      lg:hidden"
+      >
+        <Close />
+      </button>
+    </div>
+
     <!-- logo -->
-    <h2 class="text-2xl font-title font-bold lg:text-gray-100">LOGO</h2>
+    <div
+      class="hidden items-center gap-2 font-bold font-sans text-2xl
+    lg:flex lg:text-lg lg:text-gray-100"
+    >
+      <Logo class="w-10 h-auto" />
+      <span>Nox Import</span>
+    </div>
+
     <!-- items menu -->
-    <ul class="flex flex-col gap-10 lg:text-gray-100
-    lg:flex-row lg:mt-0">
+    <ul
+      class="flex px-3
+      flex-col
+      gap-10
+      lg:text-gray-100
+      lg:flex-row
+      lg:mt-0"
+    >
       {
         itemsMenu.map((item) => (
-          <li>
+          <li class="border-b border-gray-500 lg:border-0
+          lg:hover:border-b lg:hover:border-gray-100 lg:text-gray-50 lg:transition-colors lg:duration-300">
             <a
               href={item.link}
-              class="font-body text-xl font-bold btn-menu lg:text-base lg:font-medium"
+              class="font-body text-3xl btn-menu lg:text-base lg:font-medium"
             >
               {item.name}
             </a>
@@ -93,7 +119,7 @@ const itemsMenu: MenuItem[] = [
     </ul>
     <!-- social media -->
     <div
-      class="flex justify-between w-full gap-5
+      class="flex justify-between w-full gap-5 py-5 px-3
     sm:gap-7 sm:left-10
     md:gap-9 md:left-15
     lg:hidden"

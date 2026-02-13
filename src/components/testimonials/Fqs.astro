@@ -1,0 +1,364 @@
+---
+// FAQ.astro - Componente con CSS puro (sin Motion)
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+const faqs: FAQ[] = [
+  {
+    question: "¿En cuánto tiempo llega mi importación?",
+    answer:
+      "El tiempo promedio de llegada desde Estados Unidos es de 30 a 45 días, y desde China o Asia entre 45 a 60 días. Estos plazos pueden variar ligeramente dependiendo de la disponibilidad de buques y los trámites aduaneros, pero te mantendremos informado durante todo el trayecto con actualizaciones semanales.",
+  },
+  {
+    question: "¿Qué incluye el precio que me cotizan?",
+    answer:
+      "Nos gusta ser totalmente transparentes. En nuestra cotización detallamos el costo del producto en origen, el flete marítimo, los seguros y los impuestos aduaneros. No tendrás sorpresas ni cobros ocultos al final; el precio acordado en el contrato es el precio final.",
+  },
+  {
+    question: "¿Cómo aseguro mi dinero durante el proceso?",
+    answer:
+      "Tu tranquilidad es nuestra prioridad. Todas nuestras operaciones se respaldan mediante un contrato legal notariado que especifica los datos del vehículo o mercancía, los tiempos de entrega y los montos. Además, emitimos factura por nuestros servicios y contamos con oficina física donde puedes visitarnos.",
+  },
+  {
+    question: "¿Se encargan de todos los trámites de Aduana?",
+    answer:
+      "Absolutamente. Nuestro servicio es llave en mano. Nosotros gestionamos la documentación, los pagos de impuestos, la legalización y el desaduanaje. Tú solo tienes que esperar a recibir tu vehículo o carga lista para usar.",
+  },
+  {
+    question: "¿Cómo es la forma de pago?",
+    answer: `Generalmente trabajamos en dos etapas para tu comodidad:
+
+Primer pago: Cubre la compra del producto en origen (subasta o proveedor) y el flete.
+
+Segundo pago: Se realiza cuando la mercadería llega a puerto, para cubrir los gastos de nacionalización (Aduana) y la entrega final.`,
+  },
+];
+---
+
+<section class="faq-section">
+  <!-- Imagen de fondo -->
+  <img
+    src="https://i.pinimg.com/1200x/7a/b8/a5/7ab8a5c10dadba66b556f342494da670.jpg"
+    alt="Background"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+
+  <!-- Overlay oscuro -->
+  <div class="absolute inset-0 bg-black/80"></div>
+
+  <div class="max-w-6xl mx-auto container">
+    <div class="faq-header flex flex-col gap-10">
+      <!-- indicator -->
+      <span class="text-gray-300 tracking-widest text-center">Preguntas</span>
+      <!-- title -->
+      <h2
+        class="text-gray-50 text-2xl md:text-4xl font-bold text-balance text-center"
+      >
+        Preguntas Frecuentes
+      </h2>
+    </div>
+
+    <div class="faq-list">
+      {
+        faqs.map((faq, index) => (
+          <div class="faq-item" style={`--delay: ${index * 0.1}s`}>
+            <button class="faq-question" aria-expanded="false">
+              <span>{faq.question}</span>
+              <svg
+                class="faq-icon"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  class="icon-vertical"
+                  d="M12 5V19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  class="icon-horizontal"
+                  d="M5 12H19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                <p>{faq.answer}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // Funcionalidad de accordion (solo JavaScript vanilla)
+  document
+    .querySelectorAll<HTMLButtonElement>(".faq-question")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const item = button.closest<HTMLDivElement>(".faq-item");
+        if (!item) return;
+
+        const answer = item.querySelector<HTMLDivElement>(".faq-answer");
+        const isOpen = button.getAttribute("aria-expanded") === "true";
+
+        // Cerrar otros items
+        document
+          .querySelectorAll<HTMLDivElement>(".faq-item")
+          .forEach((otherItem) => {
+            if (otherItem !== item) {
+              const otherButton =
+                otherItem.querySelector<HTMLButtonElement>(".faq-question");
+              if (otherButton) {
+                otherButton.setAttribute("aria-expanded", "false");
+                otherItem.classList.remove("is-open");
+              }
+            }
+          });
+
+        // Toggle current item
+        if (!isOpen && answer) {
+          button.setAttribute("aria-expanded", "true");
+          item.classList.add("is-open");
+
+          // Calcular altura para la animación
+          const content = answer.querySelector<HTMLDivElement>(
+            ".faq-answer-content",
+          );
+          if (content) {
+            const height = content.offsetHeight;
+            answer.style.setProperty("--answer-height", `${height}px`);
+          }
+        } else {
+          button.setAttribute("aria-expanded", "false");
+          item.classList.remove("is-open");
+        }
+      });
+    });
+</script>
+
+<style>
+  .faq-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .faq-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(139, 92, 246, 0.08) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(59, 130, 246, 0.06) 0%,
+        transparent 50%
+      );
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .faq-header {
+    margin-bottom: 4rem;
+    text-align: center;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: "Outfit", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .faq-title {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: #1849b2;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.6s ease-out backwards;
+    animation-delay: var(--delay);
+  }
+
+  .faq-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .faq-item.is-open {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.75rem 2rem;
+    background: none;
+    border: none;
+    font-family: "Outfit", sans-serif;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    gap: 1.5rem;
+  }
+
+  .faq-question:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: rgba(179, 172, 172, 0.6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item.is-open .faq-icon {
+    color: #f50c0c;
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item.is-open .faq-answer {
+    height: var(--answer-height);
+  }
+
+  .faq-answer-content {
+    padding: 0 2rem 2rem 2rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    transition-delay: 0s;
+  }
+
+  .faq-item.is-open .faq-answer-content {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+
+  .faq-answer-content p {
+    font-family: "Outfit", sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+
+  /* Animaciones */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .faq-section {
+      padding: 3rem 1rem;
+    }
+
+    .faq-header {
+      margin-bottom: 3rem;
+    }
+
+    .faq-question {
+      padding: 1.5rem 1.5rem;
+      font-size: 1rem;
+    }
+
+    .faq-answer-content {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+    }
+
+    .faq-answer-content p {
+      font-size: 0.938rem;
+    }
+  }
+
+  /* Reducir animaciones para accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

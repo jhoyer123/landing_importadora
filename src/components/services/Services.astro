@@ -53,25 +53,27 @@ const serviceFirst: ServiceItem[] = [
 ];
 ---
 
-<section class="w-full py-30 relative px-4 glass-wet-gradient" id="services">
+<section class="w-full py-30 relative px-4 bg-linear-to-b from-[#091117] to-transparent" id="services">
   <div class="max-w-6xl mx-auto relative z-5 flex flex-col gap-10">
+    <!-- indicator -->
+     <span class="text-gray-300 tracking-widest text-center title-section">Servicios</span>
     <!-- title section -->
-     <h2 class="text-gray-100 font-title text-xl font-bold text-center md:text-2xl lg:text-4xl">Servicios Especializados</h2>
+     <h2 class="text-gray-100 font-title text-xl font-bold text-center md:text-2xl lg:text-4xl title-section">Servicios Especializados</h2>
 
     <!-- description -->
-     <p class="text-gray-200 text-center font-body text-base md:px-20">No solo movemos carga, gestionamos tu inversión. Especialistas en desaduanamiento, logística internacional y normativa vigente para asegurar que tu mercadería llegue a destino sin multas ni demoras.</p>
+     <p class="text-gray-200 text-center font-body text-base md:px-20 title-section">No solo movemos carga, gestionamos tu inversión. Especialistas en desaduanamiento, logística internacional y normativa vigente para asegurar que tu mercadería llegue a destino sin multas ni demoras.</p>
 
       <!-- Statistics grid -->
       <div class="space-y-8 grid 
       md:grid-cols-2 md:gap-6 md:space-y-0
-      lg:grid-cols-4">
+      lg:grid-cols-4 services-grid">
         {serviceFirst.map((stat, index) => (
           <div 
             class="pt-5 flex flex-col gap-6 shadow-xl border-b-4 border-b-black bg-white rounded-xl hover:shadow-md border border-stone-200 items-center justify-between hover:border-accent hover:scale-105 transition duration-300
-            md:gap-10"
+            md:gap-10 service-card"
           >
              <!-- Stat icon -->
-            <div class="shrink-0 w-auto">
+            <div class="shrink-0 w-auto text-[#1849B2]">
               <stat.icon className="w-15 h-15" />
             </div>
             <!-- Stat content -->
@@ -100,45 +102,34 @@ const serviceFirst: ServiceItem[] = [
 </section>
 
 <style>
-  /**
-   * Custom animations and refinements
-   * Enhances the user experience with subtle interactions
-   */
-  
-  /* Smooth image loading */
-  img {
-    animation: fadeIn 0.6s ease-in;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  /* Staggered stat card animation */
-  .space-y-8 > div {
-    animation: slideInRight 0.5s ease-out backwards;
-  }
-
-  .space-y-8 > div:nth-child(1) { animation-delay: 0.1s; }
-  .space-y-8 > div:nth-child(2) { animation-delay: 0.2s; }
-  .space-y-8 > div:nth-child(3) { animation-delay: 0.3s; }
-  .space-y-8 > div:nth-child(4) { animation-delay: 0.4s; }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  /* Ocultar elementos antes de animar */
+  .title-section,
+  .service-card {
+    opacity: 0;
   }
 </style>
+
+<script>
+  import { inView, animate, stagger } from "motion";
+
+  // Animar cada elemento con clase title-section
+  const titleElements = document.querySelectorAll(".title-section");
+  titleElements.forEach((el) => {
+    inView(el, () => {
+      animate(el, { opacity: [0, 1], y: [20, 0] }, { duration: 0.6 });
+    });
+  });
+
+  // Animar las tarjetas con stagger
+  const grid = document.querySelector(".services-grid");
+  if (grid) {
+    inView(grid, () => {
+      const cards = grid.querySelectorAll(".service-card");
+      animate(
+        cards,
+        { opacity: [0, 1], y: [30, 0] },
+        { duration: 1, delay: stagger(0.3) }
+      );
+    });
+  }
+</script>

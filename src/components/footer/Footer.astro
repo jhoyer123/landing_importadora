@@ -3,6 +3,7 @@ import Facebook from "@/icons/Facebook.astro";
 import Twitter from "@/icons/Twitter.astro";
 import Instagram from "@/icons/Instagram.astro";
 import TikTok from "@/icons/Tiktok.astro";
+import Logo from "@/icons/Logo.astro";
 
 interface SocialMedia {
   name: string;
@@ -46,16 +47,21 @@ const officeLocation = {
 };
 ---
 
-<footer
-  class="bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100"
->
+<footer class="bg-[#0E161C] text-slate-100">
   <!-- Main Footer Content -->
   <div class="max-w-6xl mx-auto px-4 pt-16 pb-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
       <!-- Company Info Section -->
       <div class="lg:col-span-4 space-y-6">
         <div class="space-y-4">
-          <div class="text-2xl font-bold text-white">LOGO</div>
+          <!-- logo -->
+          <div
+            class="flex items-center gap-2 font-bold font-sans text-xl text-gray-100
+            lg:text-lg"
+          >
+            <Logo class="w-10 h-auto" />
+            <span>Nox Import</span>
+          </div>
           <p class="text-slate-300 text-sm leading-relaxed">
             Importadores y distribuidores internacionales, soluciones logísticas
             y suministro de productos de calidad.

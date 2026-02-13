@@ -1,16 +1,50 @@
 ---
-import aboutMundo from "@/images/aboutMundo.webp";
+import about from "@/images/about.webp";
 import aboutGroup from "@/images/aboutGroup.webp";
+import carla from "@/images/carla.webp";
 import { Image } from "astro:assets";
+
+import Benefits1 from "@/icons/Benefits1.astro";
+import Benefits2 from "@/icons/Benefits2.astro";
+import Benefits3 from "@/icons/Benefits3.astro";
+
+interface Benefits {
+  title: string;
+  description: string;
+  icon: typeof Benefits1;
+}
+
+const benefits: Benefits[] = [
+  {
+    title: "Costo Optimizado",
+    description:
+      "Procesos eficientes y asesoría especializada para reducir costos en cada importación.",
+    icon: Benefits1,
+  },
+  {
+    title: "Tránsito Reducido",
+    description:
+      "Gestión ágil en aduanas y coordinación logística para minimizar tiempos de despacho.",
+    icon: Benefits2,
+  },
+  {
+    title: "Entrega a Tiempo",
+    description:
+      "Tu mercadería llega a destino cumpliendo plazos, normas y documentación exigida.",
+    icon: Benefits3,
+  },
+];
 ---
 
-<section class="bg-white py-30" id="about">
+<section class="bg-linear-to-b from-[#091117] to-transparent py-30" id="about">
   <div class="max-w-6xl mx-auto px-4">
     <!-- Header con beneficios -->
     <div class="flex flex-col gap-10 items-center text-center">
+      <!-- indicator -->
+      <span class="text-gray-300 tracking-widest">Sobre Nosotros</span>
       <!-- Título -->
       <h2
-        class="text-black font-title text-xl font-bold text-center md:text-2xl lg:text-4xl"
+        class="text-gray-100 font-title text-xl font-bold text-center md:text-2xl lg:text-4xl"
       >
         Expertos en importación y gestión aduanera
       </h2>
@@ -23,7 +57,7 @@ import { Image } from "astro:assets";
         <div class="relative">
           <div class="relative z-0">
             <Image
-              src={aboutMundo}
+              src={about}
               alt="Logística y transporte"
               class="rounded-lg w-full object-cover"
             />
@@ -45,16 +79,15 @@ import { Image } from "astro:assets";
         <div class="mt-25 flex flex-col gap-3
         lg:mt-0">
           <!-- Marca -->
-          <div class="mb-4 flex items-center">
-            <div class="w-2 h-8 bg-[#00264C] mr-3 inline-block"></div>
-            <span class="text-sm font-bold text-gray-600"
+          <div class="mb-4 bg-gray-900 py-1">
+            <span class="text-sm font-bold text-gray-100"
               >DESDE HACE 15+ AÑOS</span
             >
           </div>
 
           <!-- Descripción -->
           <p
-            class="text-gray-600 text-sm font-body mb-6
+            class="text-gray-100 text-sm font-body mb-6
           lg:text-base lg:text-start"
           >
             Acompañamos a empresas y emprendedores en todo el proceso de
@@ -66,19 +99,13 @@ import { Image } from "astro:assets";
             destino sin multas ni demoras innecesarias.
           </p>
 
-          <!-- Botón -->
-          <a
-            href="#process"
-            class="mb-5 mt-5 px-8 py-3 mx-auto bg-black text-white font-bold rounded-full hover:bg-gray-800 cursor-pointer animate-bounce transition max-w-100"
-          >
-            Conoce cómo importar con nosotros
-          </a>
-
           <!-- Testimonial -->
           <div class="border-gray-200 bg-gray-200 py-8 px-2 rounded-lg">
             <div class="flex justify-center items-center gap-4 mb-4">
-              <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&h=50&fit=crop"
+              <Image
+                width={100}
+                height={100}
+                src={carla}
                 alt="Testimonio"
                 class="w-12 h-12 rounded-full object-cover"
               />
@@ -102,78 +129,19 @@ import { Image } from "astro:assets";
         class="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12
       lg:mt-20"
       >
-        <div class="text-center">
-          <div
-            class="bg-gray-300 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4"
-          >
-            <svg
-              class="w-10 h-10 text-gray-900"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
-          </div>
-          <h3 class="font-bold text-gray-900 mb-2">Costo Optimizado</h3>
-          <p class="text-gray-600 text-sm lg:text-base">
-            Procesos eficientes y asesoría especializada para reducir costos en
-            cada importación.
-          </p>
-        </div>
-
-        <div class="text-center">
-          <div
-            class="bg-gray-300 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4"
-          >
-            <svg
-              class="w-10 h-10 text-gray-900"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-            </svg>
-          </div>
-          <h3 class="font-bold text-gray-900 mb-2">Tránsito Reducido</h3>
-          <p class="text-gray-600 text-sm lg:text-base">
-            Gestión ágil en aduanas y coordinación logística para minimizar
-            tiempos de despacho.
-          </p>
-        </div>
-
-        <div class="text-center">
-          <div
-            class="bg-gray-300 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4"
-          >
-            <svg
-              class="w-10 h-10 text-gray-900"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <h3 class="font-bold text-gray-900 mb-2">Entrega a Tiempo</h3>
-          <p class="text-gray-600 text-sm lg:text-base">
-            Tu mercadería llega a destino cumpliendo plazos, normas y
-            documentación exigida.
-          </p>
-        </div>
+        {
+          benefits.map((benefit) => (
+            <div class="text-center">
+              <div class="bg-[#1849B2] w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 text-gray-100">
+                <benefit.icon />
+              </div>
+              <h3 class="font-bold text-gray-900 mb-2">{benefit.title}</h3>
+              <p class="text-gray-900 text-sm lg:text-base">
+                {benefit.description}
+              </p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </div>

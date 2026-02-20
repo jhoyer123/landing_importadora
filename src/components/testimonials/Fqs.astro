@@ -1,6 +1,4 @@
 ---
-// FAQ.astro - Componente con CSS puro (sin Motion)
-
 interface FAQ {
   question: string;
   answer: string;
@@ -29,11 +27,7 @@ const faqs: FAQ[] = [
   },
   {
     question: "¿Cómo es la forma de pago?",
-    answer: `Generalmente trabajamos en dos etapas para tu comodidad:
-
-Primer pago: Cubre la compra del producto en origen (subasta o proveedor) y el flete.
-
-Segundo pago: Se realiza cuando la mercadería llega a puerto, para cubrir los gastos de nacionalización (Aduana) y la entrega final.`,
+    answer: `Generalmente trabajamos en dos etapas para tu comodidad. Primer pago: cubre la compra del producto en origen (subasta o proveedor) y el flete. Segundo pago: se realiza cuando la mercadería llega a puerto, para cubrir los gastos de nacionalización (Aduana) y la entrega final.`,
   },
 ];
 ---
@@ -43,17 +37,16 @@ Segundo pago: Se realiza cuando la mercadería llega a puerto, para cubrir los g
   <img
     src="https://i.pinimg.com/1200x/7a/b8/a5/7ab8a5c10dadba66b556f342494da670.jpg"
     alt="Background"
-    class="absolute inset-0 w-full h-full object-cover"
+    class="faq-bg"
+    loading="lazy"
   />
 
-  <!-- Overlay oscuro -->
-  <div class="absolute inset-0 bg-black/80"></div>
+  <!-- Overlay -->
+  <div class="faq-overlay"></div>
 
-  <div class="max-w-6xl mx-auto container">
-    <div class="faq-header flex flex-col gap-10">
-      <!-- indicator -->
-      <span class="text-gray-300 tracking-widest text-center">Preguntas</span>
-      <!-- title -->
+  <div class="faq-container">
+    <div class="faq-header">
+      <span class="faq-label">Preguntas</span>
       <h2
         class="text-gray-50 text-2xl md:text-4xl font-bold text-balance text-center"
       >
@@ -63,8 +56,8 @@ Segundo pago: Se realiza cuando la mercadería llega a puerto, para cubrir los g
 
     <div class="faq-list">
       {
-        faqs.map((faq, index) => (
-          <div class="faq-item" style={`--delay: ${index * 0.1}s`}>
+        faqs.map((faq) => (
+          <div class="faq-item">
             <button class="faq-question" aria-expanded="false">
               <span>{faq.question}</span>
               <svg
@@ -75,14 +68,13 @@ Segundo pago: Se realiza cuando la mercadería llega a puerto, para cubrir los g
                 fill="none"
               >
                 <path
-                  class="icon-vertical"
+                  class="icon-v"
                   d="M12 5V19"
                   stroke="currentColor"
                   stroke-width="2"
                   stroke-linecap="round"
                 />
                 <path
-                  class="icon-horizontal"
                   d="M5 12H19"
                   stroke="currentColor"
                   stroke-width="2"
@@ -91,9 +83,7 @@ Segundo pago: Se realiza cuando la mercadería llega a puerto, para cubrir los g
               </svg>
             </button>
             <div class="faq-answer">
-              <div class="faq-answer-content">
-                <p>{faq.answer}</p>
-              </div>
+              <p>{faq.answer}</p>
             </div>
           </div>
         ))
@@ -103,47 +93,27 @@ Segundo pago: Se realiza cuando la mercadería llega a puerto, para cubrir los g
 </section>
 
 <script>
-  // Funcionalidad de accordion (solo JavaScript vanilla)
   document
     .querySelectorAll<HTMLButtonElement>(".faq-question")
-    .forEach((button) => {
-      button.addEventListener("click", () => {
-        const item = button.closest<HTMLDivElement>(".faq-item");
-        if (!item) return;
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest<HTMLDivElement>(".faq-item")!;
+        const answer = item.querySelector<HTMLDivElement>(".faq-answer")!;
+        const isOpen = btn.getAttribute("aria-expanded") === "true";
 
-        const answer = item.querySelector<HTMLDivElement>(".faq-answer");
-        const isOpen = button.getAttribute("aria-expanded") === "true";
+        // Cerrar todos
+        document.querySelectorAll<HTMLDivElement>(".faq-item").forEach((el) => {
+          el.querySelector("button")!.setAttribute("aria-expanded", "false");
+          el.classList.remove("is-open");
+          const a = el.querySelector<HTMLDivElement>(".faq-answer")!;
+          a.style.maxHeight = "0";
+        });
 
-        // Cerrar otros items
-        document
-          .querySelectorAll<HTMLDivElement>(".faq-item")
-          .forEach((otherItem) => {
-            if (otherItem !== item) {
-              const otherButton =
-                otherItem.querySelector<HTMLButtonElement>(".faq-question");
-              if (otherButton) {
-                otherButton.setAttribute("aria-expanded", "false");
-                otherItem.classList.remove("is-open");
-              }
-            }
-          });
-
-        // Toggle current item
-        if (!isOpen && answer) {
-          button.setAttribute("aria-expanded", "true");
+        // Abrir el clickeado si estaba cerrado
+        if (!isOpen) {
+          btn.setAttribute("aria-expanded", "true");
           item.classList.add("is-open");
-
-          // Calcular altura para la animación
-          const content = answer.querySelector<HTMLDivElement>(
-            ".faq-answer-content",
-          );
-          if (content) {
-            const height = content.offsetHeight;
-            answer.style.setProperty("--answer-height", `${height}px`);
-          }
-        } else {
-          button.setAttribute("aria-expanded", "false");
-          item.classList.remove("is-open");
+          answer.style.maxHeight = answer.scrollHeight + "px";
         }
       });
     });
@@ -151,214 +121,160 @@ Segundo pago: Se realiza cuando la mercadería llega a puerto, para cubrir los g
 
 <style>
   .faq-section {
+    position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 4rem 1.5rem;
-    position: relative;
     overflow: hidden;
   }
 
-  .faq-section::before {
-    content: "";
+  .faq-bg {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(
-        circle at 20% 30%,
-        rgba(139, 92, 246, 0.08) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 80% 70%,
-        rgba(59, 130, 246, 0.06) 0%,
-        transparent 50%
-      );
-    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Sin transform3d ni will-change para no sobrecargar móvil */
   }
 
-  .container {
-    max-width: 900px;
-    width: 100%;
+  .faq-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .faq-container {
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
   }
 
   .faq-header {
-    margin-bottom: 4rem;
     text-align: center;
-    animation: fadeInUp 0.8s ease-out;
+    margin-bottom: 3rem;
   }
 
-  .badge {
-    display: inline-block;
-    font-family: "Outfit", sans-serif;
+  .faq-label {
+    display: block;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.15em;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 1.5rem;
     text-transform: uppercase;
-    animation: fadeIn 0.6s ease-out;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1rem;
   }
 
   .faq-title {
-    font-family: "Instrument Serif", serif;
-    font-size: clamp(2.5rem, 8vw, 4.5rem);
-    font-weight: 400;
-    line-height: 1.1;
-    color: #ffffff;
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #fff;
     margin: 0;
-    letter-spacing: -0.02em;
   }
 
+  /* Lista */
   .faq-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
+  /* Item */
   .faq-item {
     background: #1849b2;
-    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: fadeInUp 0.6s ease-out backwards;
-    animation-delay: var(--delay);
-  }
-
-  .faq-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.12);
-    transform: translateY(-2px);
+    /* Sin backdrop-filter: mejora mucho el rendimiento en móvil */
   }
 
   .faq-item.is-open {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(139, 92, 246, 0.3);
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
+  /* Botón pregunta */
   .faq-question {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.75rem 2rem;
+    gap: 1rem;
+    padding: 1.5rem;
     background: none;
     border: none;
-    font-family: "Outfit", sans-serif;
-    font-size: 1.125rem;
+    color: #fff;
+    font-size: 1rem;
     font-weight: 500;
-    color: #ffffff;
     text-align: left;
     cursor: pointer;
-    transition: color 0.2s ease;
-    gap: 1.5rem;
+    /* Sin :hover en móvil — usamos active en su lugar */
   }
 
-  .faq-question:hover {
-    color: rgba(255, 255, 255, 0.8);
+  /* En desktop sí mostramos hover */
+  @media (hover: hover) {
+    .faq-question:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
   }
 
+  /* En táctil usamos :active para feedback inmediato */
+  .faq-question:active {
+    opacity: 0.8;
+  }
+
+  /* Icono + */
   .faq-icon {
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    color: rgba(179, 172, 172, 0.6);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: rgba(255, 255, 255, 0.5);
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease;
   }
 
   .faq-item.is-open .faq-icon {
-    color: #f50c0c;
     transform: rotate(45deg);
+    color: #f50c0c;
   }
 
+  /* Respuesta — usando max-height para animación simple y eficiente */
   .faq-answer {
-    height: 0;
+    max-height: 0;
     overflow: hidden;
-    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-height 0.35s ease;
   }
 
-  .faq-item.is-open .faq-answer {
-    height: var(--answer-height);
-  }
-
-  .faq-answer-content {
-    padding: 0 2rem 2rem 2rem;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    transition-delay: 0s;
-  }
-
-  .faq-item.is-open .faq-answer-content {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
-  }
-
-  .faq-answer-content p {
-    font-family: "Outfit", sans-serif;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.7);
+  .faq-answer p {
+    padding: 0 1.5rem 1.5rem;
     margin: 0;
-  }
-
-  /* Animaciones */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.75);
   }
 
   /* Responsive */
-  @media (max-width: 768px) {
+  @media (max-width: 640px) {
     .faq-section {
       padding: 3rem 1rem;
     }
 
-    .faq-header {
-      margin-bottom: 3rem;
-    }
-
     .faq-question {
-      padding: 1.5rem 1.5rem;
-      font-size: 1rem;
+      padding: 1.25rem;
+      font-size: 0.95rem;
     }
 
-    .faq-answer-content {
-      padding: 0 1.5rem 1.5rem 1.5rem;
-    }
-
-    .faq-answer-content p {
-      font-size: 0.938rem;
+    .faq-answer p {
+      padding: 0 1.25rem 1.25rem;
     }
   }
 
-  /* Reducir animaciones para accesibilidad */
+  /* Accesibilidad */
   @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      transition-duration: 0.01ms !important;
+    .faq-answer,
+    .faq-icon {
+      transition: none;
     }
   }
 </style>

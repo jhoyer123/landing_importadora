@@ -8,6 +8,23 @@
 @theme {
   --font-body: "Inter", sans-serif;
   --font-title: "Manrope", sans-serif;
+
+  --background-image-grad-hero: linear-gradient(
+    135deg,
+    #0a1628 0%,
+    #1849b2 50%,
+    #0d0d0d 100%
+  );
+  --background-image-grad-section: linear-gradient(
+    180deg,
+    #0d1b3e 0%,
+    #060d1a 100%
+  );
+  --background-image-grad-card: linear-gradient(
+    135deg,
+    #1849b2 0%,
+    #0a1628 100%
+  );
 }
 
 :root {

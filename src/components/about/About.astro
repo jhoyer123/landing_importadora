@@ -41,10 +41,14 @@ const benefits: Benefits[] = [
     <!-- Header con beneficios -->
     <div class="flex flex-col gap-10 items-center text-center">
       <!-- indicator -->
-      <span class="text-gray-300 tracking-widest">Sobre Nosotros</span>
+      <span class="text-gray-300 tracking-widest" data-animate="fade"
+        >Sobre Nosotros</span
+      >
       <!-- Título -->
       <h2
+        data-aos="zoom-in"
         class="text-gray-100 font-title text-xl font-bold text-center md:text-2xl lg:text-4xl"
+        data-animate="up"
       >
         Expertos en importación y gestión aduanera
       </h2>
@@ -59,7 +63,8 @@ const benefits: Benefits[] = [
             <Image
               src={about}
               alt="Logística y transporte"
-              class="rounded-lg w-full object-cover"
+              class="rounded-lg w-full object-cover border-2 border-gray-100 shadow-lg"
+              data-aos="fade-up"
             />
           </div>
           <div
@@ -70,7 +75,8 @@ const benefits: Benefits[] = [
             <Image
               src={aboutGroup}
               alt="Contenedores"
-              class="rounded-lg w-full h-full object-cover border-4 border-white shadow-lg"
+              class="rounded-lg w-full h-full object-cover border-2 border-gray-100 shadow-lg"
+              data-aos="fade-right"
             />
           </div>
         </div>
@@ -131,7 +137,7 @@ const benefits: Benefits[] = [
       >
         {
           benefits.map((benefit) => (
-            <div class="text-center">
+            <div class="text-center" data-aos="fade-up">
               <div class="bg-[#1849B2] w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 text-gray-100">
                 <benefit.icon />
               </div>

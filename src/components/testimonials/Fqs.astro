@@ -48,6 +48,7 @@ const faqs: FAQ[] = [
     <div class="faq-header">
       <span class="faq-label">Preguntas</span>
       <h2
+        data-aos="zoom-in"
         class="text-gray-50 text-2xl md:text-4xl font-bold text-balance text-center"
       >
         Preguntas Frecuentes
@@ -57,7 +58,7 @@ const faqs: FAQ[] = [
     <div class="faq-list">
       {
         faqs.map((faq) => (
-          <div class="faq-item">
+          <div class="faq-item" data-aos="fade-up">
             <button class="faq-question" aria-expanded="false">
               <span>{faq.question}</span>
               <svg
@@ -151,6 +152,7 @@ const faqs: FAQ[] = [
     width: 100%;
     max-width: 860px;
     margin: 0 auto;
+    height: auto;
   }
 
   .faq-header {
@@ -236,7 +238,7 @@ const faqs: FAQ[] = [
 
   .faq-item.is-open .faq-icon {
     transform: rotate(45deg);
-    color: #f50c0c;
+    color: #a0afb0;
   }
 
   /* Respuesta — usando max-height para animación simple y eficiente */
